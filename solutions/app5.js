@@ -31,6 +31,44 @@
  * üres tömbbel
  */
 
+const compare = (a,b) => {
+    if ( a.price < b.price ) {return -1}
+    if ( a.price > b.price ) {return 1}
+    return 0
+}
+
+const sortProducts = (products = [{}]) => {
+    let sortedArray = []
+    return sortedArray = products.sort (compare)
+}
+
+const deleteProducts = (products = [{}], minPrice) => {
+    while (products[0].price < minPrice) {
+        products.splice(0,1)
+    }
+    return products
+}
+
+const getProducts = async (url = '') => {
+    try {
+        const response = await fetch(url)
+        const data = await response.json()
+        const sortedArray = sortProducts(data)
+        const finalArray = deleteProducts(sortedArray,25)
+        return finalArray
+    }
+    catch (error) {
+        console.error(error)
+        const array = []
+        return array
+    }
+}
+
+//getProducts('https://nettuts.hu/jms/js4-002/products?limit=100').then(console.log)
+
 /**
  * TODO: exportáld ki helyesen a getProducts függvényt!
  */
+export {
+    getProducts,
+}
