@@ -43,7 +43,7 @@ const sortProducts = (products = [{}]) => {
 }
 
 const deleteProducts = (products = [{}], minPrice) => {
-    while (products[0].price < 25) {
+    while (products[0].price < minPrice) {
         products.splice(0,1)
     }
     return products
@@ -54,7 +54,7 @@ const getProducts = async (url = '') => {
         const response = await fetch(url)
         const data = await response.json()
         const sortedArray = sortProducts(data)
-        const finalArray = deleteProducts(sortedArray)
+        const finalArray = deleteProducts(sortedArray,25)
         return finalArray
     }
     catch (error) {
